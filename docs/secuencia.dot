@@ -1,0 +1,15 @@
+digraph sequence {
+ graph [label="OAuth2 client_credentials en el SDK generado", labelloc=t, fontsize=21, fontname="DejaVu Sans", rankdir=TB, bgcolor="transparent", nodesep=.4, ranksep=.65];
+ node [shape=box, style="rounded,filled", color="#8595A5", fillcolor="#EEF3F8", fontname="DejaVu Sans", fontsize=12];
+ edge [color="#6E8193", penwidth=1.5, arrowsize=.7];
+ a [label="Aplicación\nclient.<tag>.<operación>()"];
+ b [label="Adaptador del tag\nupdate_params_for_auth()"];
+ c [label="Proveedor OAuth2\ncaché + expiración"];
+ d [label="Token endpoint\nPOST grant_type=client_credentials"];
+ e [label="API HTTP\nAuthorization: Bearer ..."];
+ a -> b -> c;
+ c -> d [label="si expira"];
+ d -> c [label="access_token, expires_in"];
+ c -> e [label="token válido"];
+ e -> a [label="respuesta"];
+}

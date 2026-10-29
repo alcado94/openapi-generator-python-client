@@ -1,0 +1,15 @@
+digraph architecture {
+  graph [label="CLI genérico: generación de SDKs Python por tags", labelloc=t, fontsize=22, fontname="DejaVu Sans", bgcolor="transparent", nodesep=.35, ranksep=.6];
+  node [shape=box, style="rounded,filled", fillcolor="#EEF3F8", color="#8595A5", fontname="DejaVu Sans", fontsize=13, margin=".22,.15"];
+  edge [color="#6E8193", penwidth=1.8, arrowsize=.8];
+  spec [label="OpenAPI 3.x\narchivo YAML / JSON", fillcolor="#E4F0FF"];
+  cli [label="openapi-modular generate\n--spec --name --output", fillcolor="#D5E9F6"];
+  tags [label="Lectura de tags\nValidación y filtrado por dominio"];
+  generator [label="OpenAPI Generator CLI\npython + urllib3"];
+  core [label="Paquete -core\nClient, Basic, OAuth2, carga diferida", fillcolor="#E8F5EF"];
+  domain [label="Distribución independiente por tag\nAPI, modelos, adaptador", fillcolor="#E8F5EF"];
+  facade [label="Metapaquete\nextras [users], [catalogs], [all]", fillcolor="#E8F5EF"];
+  user [label="Consumidor\npip install \"<sdk>[<tag>]\"", fillcolor="#FAEFDE"];
+  spec -> cli -> tags; tags -> generator; tags -> core; tags -> facade;
+  generator -> domain; core -> user; domain -> user; facade -> user;
+}
